@@ -1,0 +1,24 @@
+#!/bin/zsh
+setopt EXTENDED_GLOB
+
+mkdir -p .old
+
+# TODO: this is broken
+#
+#for rcfile in ^setup; do
+#  [[ -e "$HOME/.${rcfile:t}" ]] && mv "$HOME/.${rcfile:t}" .old 
+#  ln -s "$rcfile" "$HOME/.${rcfile:t}"
+#done
+
+[[ -e ~/.vim/bundle/Vundle.vim ]] && mv ~/.vim/bundle/Vundle.vim .old
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+
+vim +PluginInstall +qall
+
+[[ -e ~/.zprezto ]] && mv ~/.zprezto .old
+git clone --recursive https://github.com/sorin-ionescu/prezto.git ~/.zprezto
+
+for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do
+  ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}"
+done
+
