@@ -48,8 +48,7 @@ bindkey '^[^[[D' backward-word
 bindkey '^[^[[C' forward-word
 
 source "${HOME}/.iterm2_shell_integration.zsh"
-[[ -z ~/tc/bin/activate_gti ]] && source ~/tc/bin/activate_gti
-ulimit -n 65536 65536
+[[ -e ~/tc/bin/activate_gti ]] && source ~/tc/bin/activate_gti
 
 export PATH=~/bin:~/bin/`uname`:$PATH
 export LC_CTYPE=C.UTF-8
